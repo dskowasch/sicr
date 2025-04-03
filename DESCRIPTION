@@ -1,0 +1,29 @@
+Package: sicr
+Title: Stochastic Individual Claims Reserving
+Version: 0.0.0.9000
+Authors@R: 
+    person("Dirk", "Skowasch", , "d.skowasch@gmx.de", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: GPL (>= 3)
+URL: https://dskowasch.github.io/sicr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    DT
+Config/testthat/edition: 3
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Imports: 
+    data.table,
+    dplyr,
+    stats,
+    tidyr,
+    openxlsx2,
+    ggplot2
+VignetteBuilder: knitr
