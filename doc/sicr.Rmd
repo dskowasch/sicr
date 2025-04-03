@@ -30,20 +30,16 @@ The most significant extensions and differences to Murphy/McLennan are
 This vignette offers a step by step guide to use the package. It also includes some technical explanations, but does not offer a detailed description of the method. This can instead be found in the above linked article.
 
 ### Installation
-```s
-# install.package("remotes") # In case you have not installed it.
-remotes::install_github("dskowasch/sicr", dependencies = TRUE)
-```
+kommt noch
 
 ## Setup
-The package needs to be loaded:
+The following packages need to be loaded:
 ```{r setup, warning = FALSE, message = FALSE}
 library(sicr)
-
+library(dplyr)
 ```
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(dplyr)
 out <- function(df) {
    if (is.data.frame(df)) {
       return(DT::datatable(df, options = list(scrollX = TRUE, paging = TRUE)) %>%
@@ -437,7 +433,7 @@ It is very hard to automatically identify the above second example of special cl
 
 For the other kind of special claims, the extraordinarily large claims, a comparison of the claims reserves of large claims with the claims reserves of the historic observations in the pools is very useful. The function `plot_identify_special_claims()` was built for this purpose. It delivers a graphical assistance for that comparison:
 
-```{r, out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 8, fig.align = "center"}
+```{r, out.width = "98%",  warning = FALSE, fig.width = 9, fig.height = 8, fig.align = "center"}
 plot_identify_special_claims(pools = pools,
                              extended_claims_data = extended_claims_data,
                              first_orig_year = first_orig_year,
@@ -474,7 +470,7 @@ special_claim_ids
 ```
 
 The plot can be updated with the special_claims dataframe, that is explained one chapter below:
-```{r, out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 8, fig.align = "center"}
+```{r, out.width = "98%",  warning = FALSE, fig.width = 9, fig.height = 8, fig.align = "center"}
 plot_identify_special_claims(pools = pools,
                              extended_claims_data = extended_claims_data,
                              first_orig_year = first_orig_year,
@@ -886,7 +882,7 @@ openxlsx2::wb_open(output)
 ```
 
 The result in Excel looks like this:
-```{r, echo = FALSE, out.width = "98%", fig.cap = " ", warning = FALSE, fig.align = "center"}
+```{r, out.width = "98%",  warning = FALSE, fig.align = "center"}
 knitr::include_graphics("images/Excel_xmpl.png")
 ```
 

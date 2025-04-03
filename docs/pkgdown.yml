@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   sicr: sicr.html
-last_built: 2025-04-03T13:47Z
+last_built: 2025-04-03T18:37Z
 urls:
   reference: https://dskowasch.github.io/sicr/reference
   article: https://dskowasch.github.io/sicr/articles

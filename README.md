@@ -18,7 +18,7 @@ remotes::install_github("dskowasch/sicr", dependencies = TRUE)
 
 ## Get started
 
-The sicr package vignette [vignette](https://dskowasch.github.io/sicr/articles/sicr.html) describes the usage in
+The sicr package [vignette](https://dskowasch.github.io/sicr/articles/sicr.html) describes the usage in
 detail with a complete example.
 
 

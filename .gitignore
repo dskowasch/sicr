@@ -1,5 +1,5 @@
 .Rproj.user
 inst/doc
-docs
-/doc/
+#docs
+#/doc/
 /Meta/
