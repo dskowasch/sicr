@@ -1,6 +1,6 @@
 Package: sicr
 Title: Stochastic Individual Claims Reserving
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Dirk", "Skowasch", , "d.skowasch@gmx.de", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
