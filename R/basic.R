@@ -167,6 +167,7 @@ convert_single2dev_year_triangle <- function(cashflow,
                                              claims_orig_years,
                                              first_orig_year,
                                              last_orig_year) {
+   cashflow <- rbind(cashflow)
    if (nrow(cashflow) != length(claims_orig_years)) {
       stop("cashflow must have same number of rows as claims_orig_years")
    }
@@ -216,6 +217,7 @@ convert_single2dev_year_prediction <- function(cashflow,
                                                first_orig_year,
                                                last_orig_year) {
 
+   cashflow <- rbind(cashflow)
    if (nrow(cashflow) != length(claims_orig_years)) {
       stop("cashflow must have same number of rows as claims_orig_years")
    }
@@ -452,7 +454,7 @@ cum2inc <- function(cum_triangle){
    }
 
    inc_triangle <- cbind(cum_triangle[,1],
-                        t(diff(t(cum_triangle))))
+                         t(diff(t(cum_triangle))))
    colnames(inc_triangle) <- colnames(cum_triangle)
    return(inc_triangle)
 }
