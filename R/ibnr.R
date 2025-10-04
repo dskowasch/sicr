@@ -46,7 +46,7 @@ get_additive_ibnr_model <- function(large_claims_list,
 
    Large_since <- NULL
    orig_years <- first_orig_year:last_orig_year
-   max_dev_year <- NROW(orig_years) - 1
+   max_dev_year <- max(1, NROW(orig_years) - 1)
    dev_years <- 1:max_dev_year
 
    vexposure <- exposure$Exposure[match(orig_years, exposure$Origin_year)]
@@ -111,6 +111,9 @@ get_expected_ibnr_numbers <- function(additive_ibnr_model, exposure){
    # apply factors
    expected_ibnr_numbers <- t(t(expected_ibnr_numbers) * factors)
 
+   # in case of only one origin year, na's are produced here, these are set to 0
+   expected_ibnr_numbers[is.na(expected_ibnr_numbers)] <- 0
+   
    # names
    rownames(expected_ibnr_numbers) <- exposure$Origin_year
    colnames(expected_ibnr_numbers) <- 2:max_dev_year_with_ibnr
@@ -286,9 +289,11 @@ generate_ibnr_pools <- function(large_claims_list,
                                 last_orig_year,
                                 years_for_ibnr_pools){
    ibnr_pools <- list()
-   for (dev_year in c(1:(last_orig_year - first_orig_year))) {
-      ibnr_pools[[dev_year]] <- which(large_claims_list$Dev_year_of_growing_large == (dev_year + 1) &
-                                         large_claims_list$Large_since %in% years_for_ibnr_pools)
+   if (last_orig_year > first_orig_year) {
+      for (dev_year in c(1:(last_orig_year - first_orig_year))) {
+         ibnr_pools[[dev_year]] <- which(large_claims_list$Dev_year_of_growing_large == (dev_year + 1) &
+                                            large_claims_list$Large_since %in% years_for_ibnr_pools)
+      }
    }
    return(ibnr_pools)
 }

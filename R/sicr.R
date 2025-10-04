@@ -656,3 +656,206 @@ sicr <- function(n,
 }
 
 
+#' Simplified version of sicr
+#'
+#' @description
+#' This function offers a simplified version of [sicr()]. It can be used to used to
+#' get the gross results for certain development years and reserve classes without building
+#' all the for [sicr()] required objects in advance.
+#'
+#' @param dev_year Integer or integer vector. Must be greater or equal to 1.
+#' @param reserve_class Integer or integer vector. Must be greater or equal to 0.
+#' @param last_orig_year Last origin year.
+#' @param pools List as output of [generate_pools()].
+#' @param indices Dataframe for indexation, see details of [prepare_data()].
+#' @param age_shift Dataframe, see description of [age_shift_xmpl]. Default: NULL \cr
+#' Only necessary if annuities shall be considered.
+#' @param mortality Dataframe, see description of [mortality_xmpl]. Default: NULL \cr
+#' Only necessary if annuities shall be considered.
+#' @param n Number of simulations. Default: 100
+#'
+#' @returns
+#' Dataframe with columns 'Reserve_class', 'Dev_year' and 'Best_estimate'.
+#' @export
+#'
+#' @examples
+#' # this example uses data provided with this package
+#' extended_claims_data <- prepare_data(claims_data = claims_data_xmpl,
+#'                                      indices = indices_xmpl,
+#'                                      threshold = 400000,
+#'                                      first_orig_year = 1989,
+#'                                      last_orig_year = 2023,
+#'                                      expected_year_of_growing_large = 3,
+#'                                      reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+#'                                      pool_of_annuities = pool_of_annuities_xmpl)
+#'
+#' pools <- generate_pools(extended_claims_data = extended_claims_data,
+#'                         reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+#'                         years_for_pools = 2014:2023,
+#'                         start_of_tail = 17,
+#'                         end_of_tail = 50,
+#'                         lower_outlier_limit = -Inf,
+#'                         upper_outlier_limit = Inf,
+#'                         pool_of_annuities = pool_of_annuities_xmpl)
+#'
+#' sicr_single(dev_year = 1:5,
+#'             reserve_class = 0:3,
+#'             last_orig_year = 2023,
+#'             pools = pools,
+#'             indices = indices_xmpl,
+#'             age_shift = age_shift_xmpl,
+#'             mortality = mortality_xmpl)
+#' @importFrom dplyr "%>%" mutate
+#' @importFrom tidyr crossing
+#' @importFrom stats aggregate
+sicr_single <- function(dev_year,
+                        reserve_class,
+                        last_orig_year,
+                        pools,
+                        indices,
+                        age_shift = NULL,
+                        mortality = NULL,
+                        n = 100) {
+   # Setting arguments to NULL to prevent note in CMD check
+   Reserve <- Origin_year <- Reserve_class <- NULL
+
+   # checks
+   if (any(dev_year < 1)) {
+      stop("dev_year must be 1 or higher")
+   }
+
+   if (any(reserve_class < 0)) {
+      stop("reserve_class must be 0 or higher")
+   }
+
+   # extract parameters from pools
+   index_year <- attr(pools, "index_year")
+   pool_of_annuities <- pools[[3]]
+   reserve_classes <- attr(pools, "reserve_classes")
+   threshold <- attr(pools, "threshold")
+
+   # transform reserve_class vector to reserve vector
+   reserve <- reserve_class
+   reserve[reserve != 0] <- reserve_classes[reserve]
+
+   # derive (first) origin year from dev_year
+   orig_year <- last_orig_year - dev_year + 1
+   first_orig_year <- min(orig_year)
+
+   # extend indices dataframe if first_orig_year is smaller than the smallest Calendar_year
+   first_cal_in_indices <- min(indices$Calendar_year)
+   if (first_orig_year < first_cal_in_indices) {
+      new_rows <- data.frame(
+         Calendar_year = seq(first_orig_year, first_cal_in_indices - 1),
+         Index_gross = 0,
+         Index_re = 0,
+         Transition_factor = indices$Transition_factor[indices$Calendar_year == first_cal_in_indices]
+      )
+      indices2 <- rbind(new_rows, indices)
+      attr(indices2, "index_year") <- attr(indices, "index_year")
+      indices <- indices2
+   }
+
+   # combine information into a dataframe
+   df <-
+      data.frame(
+         Reserve_class = reserve_class,
+         Reserve = reserve
+
+      ) %>%
+      crossing(Origin_year = orig_year) %>%
+      mutate(
+         Original_reserve = apply_index(Reserve,
+                                        index_year,
+                                        last_orig_year,
+                                        indices),
+         Dev_year = last_orig_year - Origin_year + 1,
+         Claim_id = paste(sep = "_",
+                          "Claim",
+                          Reserve_class,
+                          last_orig_year - Origin_year + 1),
+         Original_payment = apply_index(threshold + 1,
+                                        index_year,
+                                        Origin_year,
+                                        indices)
+      ) %>%
+      as.data.frame
+
+
+   # prepare dataframe claims_data to use common functions
+   # the last year is required with the latest reserves
+   claims_data_last <-
+      data.frame(
+         Claim_id = df$Claim_id,
+         Origin_year = df$Origin_year,
+         Calendar_year = last_orig_year,
+         Cl_payment_cal = 0,
+         Cl_reserve = df$Original_reserve,
+         An_payment_cal = 0,
+         An_reserve = 0
+      )
+
+   # the first year is required with a large payment which makes the claim large
+   claims_data_first <-
+      data.frame(
+         Claim_id = df$Claim_id,
+         Origin_year = df$Origin_year,
+         Calendar_year = df$Origin_year,
+         Cl_payment_cal = df$Original_payment,
+         Cl_reserve = 0,
+         An_payment_cal = 0,
+         An_reserve = 0
+      )
+
+   # combine
+   claims_data <- rbind(claims_data_first, claims_data_last)
+
+   # if origin year of the claim is large_orig_year, the row exists twice
+   # and needs to be aggregated
+   claims_data <- aggregate(claims_data[ , 4:7],
+                            by = claims_data[ , 1:3],
+                            FUN = sum,
+                            na.rm = TRUE)
+
+   # the required objects for sicr are created by the usual functions
+   extended_claims_data <-
+      prepare_data(claims_data = claims_data,
+                   indices = indices,
+                   threshold = threshold,
+                   first_orig_year = first_orig_year,
+                   last_orig_year = last_orig_year,
+                   reserve_classes = reserve_classes,
+                   pool_of_annuities = pool_of_annuities)
+
+   large_claims_list <-
+      generate_claims_list(extended_claims_data,
+                           first_orig_year,
+                           last_orig_year)
+
+   history <- # annuities are set to 0, so only claims payments are relevant
+      generate_history_per_claim(data = extended_claims_data,
+                                 column = "Cl_payment_cal",
+                                 first_orig_year = first_orig_year,
+                                 last_orig_year = last_orig_year)
+
+   # apply sicr and add results per claim
+   df$Best_estimate <-
+      rowSums(
+         rbind( # transforms row to matrix in case of only one claim
+            sicr(
+               n = n,
+               large_claims_list = large_claims_list,
+               first_orig_year = first_orig_year,
+               last_orig_year = last_orig_year,
+               pools = pools,
+               indices = indices,
+               history = history,
+               age_shift = age_shift,
+               mortality = mortality,
+               progress = FALSE,
+               summary = FALSE
+            )[match(df$Claim_id, large_claims_list$Claim_id),,"Gross_sum"]))
+
+   # return only relevant columns
+   return(df[,c("Reserve_class", "Dev_year", "Best_estimate")])
+}

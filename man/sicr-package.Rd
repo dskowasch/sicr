@@ -15,7 +15,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Dirk Skowasch \email{d.skowasch@gmx.de} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Dirk Skowasch \email{d.skowasch@gmx.de}
 
 }
 \keyword{internal}
