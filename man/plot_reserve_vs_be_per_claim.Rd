@@ -63,7 +63,7 @@ large_claims_list <- generate_claims_list(extended_claims_data = extended_claims
                                           first_orig_year = 1989,
                                           last_orig_year = 2023)
 
-plot_reserve_vs_be_per_claim(
+p <- plot_reserve_vs_be_per_claim(
    last_orig_year = 2023,
    pools = pools,
    large_claims_list = large_claims_list,

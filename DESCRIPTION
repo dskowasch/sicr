@@ -1,6 +1,6 @@
 Package: sicr
 Title: Stochastic Individual Claims Reserving
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     person("Dirk", "Skowasch", , "d.skowasch@gmx.de", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
@@ -13,6 +13,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
+    ggrepel,
     DT
 Config/testthat/edition: 3
 Depends: 
