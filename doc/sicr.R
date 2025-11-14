@@ -1,8 +1,9 @@
 ## ----setup, warning = FALSE, message = FALSE----------------------------------
 library(sicr)
-library(dplyr)
+
 
 ## ----echo = FALSE, warning = FALSE, message = FALSE---------------------------
+library(dplyr)
 out <- function(df) {
    if (is.data.frame(df)) {
       return(DT::datatable(df, options = list(scrollX = TRUE, paging = TRUE)) %>%
@@ -136,7 +137,7 @@ pools <- generate_pools(extended_claims_data = extended_claims_data,
                         upper_outlier_limit = Inf,
                         pool_of_annuities = pool_of_annuities_xmpl)
 
-## ----out.width = "98%",  warning = FALSE, fig.width = 9, fig.height = 8, fig.align = "center"----
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 8, fig.align = "center"----
 plot_identify_special_claims(pools = pools,
                              extended_claims_data = extended_claims_data,
                              first_orig_year = first_orig_year,
@@ -164,7 +165,7 @@ id5 <- extended_claims_data[extended_claims_data$Calendar_year == 2023 &
 special_claim_ids <- c(id1, id2, id3, id4, id5)
 special_claim_ids
 
-## ----out.width = "98%",  warning = FALSE, fig.width = 9, fig.height = 8, fig.align = "center"----
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 8, fig.align = "center"----
 plot_identify_special_claims(pools = pools,
                              extended_claims_data = extended_claims_data,
                              first_orig_year = first_orig_year,
@@ -431,6 +432,179 @@ output <- openxlsx2::wb_workbook() %>%
 ## ----eval = FALSE-------------------------------------------------------------
 # openxlsx2::wb_open(output)
 
-## ----out.width = "98%",  warning = FALSE, fig.align = "center"----------------
+## ----echo = FALSE, out.width = "98%", fig.cap = " ", warning = FALSE, fig.align = "center"----
 knitr::include_graphics("images/Excel_xmpl.png")
+
+## -----------------------------------------------------------------------------
+p_pools <- plot_pools_overview(pools, large_claims_list)
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+plot1 <- gridExtra::grid.arrange(p_pools[[1]], 
+                    gridExtra::arrangeGrob(p_pools[[2]], p_pools[[3]], p_pools[[4]], ncol = 3, widths = c(1,1,1)),
+                    ncol = 1, heights = c(3, 2))
+plot1
+
+## -----------------------------------------------------------------------------
+p_reserve_vs_be <- 
+   plot_reserve_vs_be(large_claims_list = large_claims_list,
+                      sim_result = sim_result)
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+p_reserve_vs_be[[1]]
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+p_reserve_vs_be[[2]]
+
+## -----------------------------------------------------------------------------
+p_reserve_vs_be_single <- 
+   plot_reserve_vs_be_per_claim(last_orig_year = 2023,
+                                pools = pools,
+                                large_claims_list = large_claims_list,
+                                indices = indices_xmpl,
+                                age_shift = age_shift_xmpl,
+                                mortality = mortality_xmpl)
+
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+p_reserve_vs_be_single[[1]]
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+p_reserve_vs_be_single[[2]]
+
+## -----------------------------------------------------------------------------
+claims_data_old <- dplyr::filter(claims_data_xmpl,
+                                 Calendar_year <= 2022)
+
+historic_indices_old <- dplyr::filter(historic_indices_xmpl,
+                                      Calendar_year <= 2022)
+
+indices_old <- expand_historic_indices(historic_indices_old,
+                                       first_orig_year = 1989,
+                                       last_orig_year = 2022,
+                                       index_gross_future = 0.03,
+                                       index_re_future = 0.02)
+
+indices_old <- add_transition_factor(indices_old, index_year = 2022)
+extended_claims_data <- prepare_data(claims_data = claims_data_old,
+                                     indices = indices_old,
+                                     threshold = 400000,
+                                     first_orig_year = 1989,
+                                     last_orig_year = 2022,
+                                     expected_year_of_growing_large = 3,
+                                     reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+                                     pool_of_annuities = pool_of_annuities_xmpl)
+
+pools <- generate_pools(extended_claims_data = extended_claims_data,
+                        reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+                        years_for_pools = 2014:2022,
+                        start_of_tail = 17,
+                        end_of_tail = 50,
+                        lower_outlier_limit = -Inf,
+                        upper_outlier_limit = Inf,
+                        pool_of_annuities = pool_of_annuities_xmpl)
+
+large_claims_list <- generate_claims_list(extended_claims_data = extended_claims_data,
+                                          first_orig_year = 1989,
+                                          last_orig_year = 2022)
+
+history <- generate_history_per_claim(data = extended_claims_data,
+                                      column = "Cl_payment_cal",
+                                      first_orig_year = 1989,
+                                      last_orig_year = 2022)
+
+series <- sicr_series(n = 50,
+                      large_claims_list = large_claims_list,
+                      first_orig_year = 1989,
+                      last_orig_year = 2022,
+                      pools = pools,
+                      indices = indices_old,
+                      history = history,
+                      progress = FALSE)
+
+## -----------------------------------------------------------------------------
+extended_claims_data_new <- prepare_data(claims_data = claims_data_xmpl,
+                                     indices = indices_xmpl,
+                                     threshold = 400000,
+                                     first_orig_year = 1989,
+                                     last_orig_year = 2023,
+                                     expected_year_of_growing_large = 3,
+                                     reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+                                     pool_of_annuities = pool_of_annuities_xmpl)
+
+g_oy <- backtesting_1y_per_origin_year(sim_result_series_old = series,
+                                       extended_claims_data_new = extended_claims_data_new)
+g_rc <- backtesting_1y_per_reserve_class(sim_result_series_old = series,
+                                         extended_claims_data_new = extended_claims_data_new)
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+g_oy
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+g_rc
+
+## -----------------------------------------------------------------------------
+g_single <- backtesting_1y_single_per_dev_year(sim_result_series_old = series,
+                                               extended_claims_data_new = extended_claims_data_new,
+                                               reserve_class = 4,
+                                               dev_year = 2:10)
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+g_single
+
+## -----------------------------------------------------------------------------
+claims_data_old <- dplyr::filter(claims_data_xmpl,
+                                 Calendar_year <= 2020)
+
+historic_indices_old <- dplyr::filter(historic_indices_xmpl,
+                                      Calendar_year <= 2020)
+
+indices_old <- expand_historic_indices(historic_indices_old,
+                                       first_orig_year = 1989,
+                                       last_orig_year = 2020,
+                                       index_gross_future = 0.03,
+                                       index_re_future = 0.02)
+
+indices_old <- add_transition_factor(indices_old, index_year = 2022)
+extended_claims_data <- prepare_data(claims_data = claims_data_old,
+                                     indices = indices_old,
+                                     threshold = 400000,
+                                     first_orig_year = 1989,
+                                     last_orig_year = 2020,
+                                     expected_year_of_growing_large = 3,
+                                     reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+                                     pool_of_annuities = pool_of_annuities_xmpl)
+pools <- generate_pools(extended_claims_data = extended_claims_data,
+                        reserve_classes = c(1, 200001, 400001, 700001, 1400001),
+                        years_for_pools = 2014:2020,
+                        start_of_tail = 17,
+                        end_of_tail = 50,
+                        lower_outlier_limit = -Inf,
+                        upper_outlier_limit = Inf,
+                        pool_of_annuities = pool_of_annuities_xmpl)
+
+large_claims_list <- generate_claims_list(extended_claims_data = extended_claims_data,
+                                          first_orig_year = 1989,
+                                          last_orig_year = 2020)
+
+history <- generate_history_per_claim(data = extended_claims_data,
+                                      column = "Cl_payment_cal",
+                                      first_orig_year = 1989,
+                                      last_orig_year = 2020)
+
+series <- sicr_series(n = 50,
+                      large_claims_list = large_claims_list,
+                      first_orig_year = 1989,
+                      last_orig_year = 2020,
+                      pools = pools,
+                      indices = indices_old,
+                      history = history,
+                      progress = FALSE)
+
+g_multiyears <- backtesting_multiyears(sim_result_series_old = series,
+                                       extended_claims_data_new = extended_claims_data_new,
+                                       reserve_classes = 3,
+                                       dev_year = 2:16)
+
+## ----out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"----
+g_multiyears
 

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sicr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,10 +47,10 @@
 
 <link href="sicr_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 <script src="sicr_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="sicr_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="sicr_files/datatables-binding-0.33/datatables.js"></script><link href="sicr_files/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="sicr_files/datatables-binding-0.34.0/datatables.js"></script><link href="sicr_files/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="sicr_files/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="sicr_files/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="sicr_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="sicr_files/crosstalk-1.2.1/js/crosstalk.min.js"></script><div class="row">
+<script src="sicr_files/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="sicr_files/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="sicr_files/crosstalk-1.2.2/js/crosstalk.min.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>sicr</h1>
@@ -59,7 +59,7 @@ Claims Reserving</h3>
                         <h4 data-toc-skip class="author">Dirk
 Skowasch</h4>
             
-            <h4 data-toc-skip class="date">2025-04-03</h4>
+            <h4 data-toc-skip class="date">2025-11-14</h4>
       
 
       <div class="d-none name"><code>sicr.Rmd</code></div>
@@ -1522,8 +1522,264 @@ be found in the functions documentation):</p>
 <code class="sourceCode R"><span><span class="fu">openxlsx2</span><span class="fu">::</span><span class="fu"><a href="https://janmarvin.github.io/openxlsx2/reference/wb_open.html" class="external-link">wb_open</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre></div>
 The result in Excel looks like this:
 <div class="figure" style="text-align: center">
-<img src="images%2FExcel_xmpl.png" alt=" " width="98%"><p class="caption">
+<img src="images/Excel_xmpl.png" alt=" " width="98%"><p class="caption">
 </p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="useful-plots">Useful plots<a class="anchor" aria-label="anchor" href="#useful-plots"></a>
+</h2>
+<p>This package comes with some further plotting functions that have
+been useful in the past.</p>
+<div class="section level3">
+<h3 id="general-information">General information<a class="anchor" aria-label="anchor" href="#general-information"></a>
+</h3>
+<p>The first function returns four simple plots that describe the pools
+and reserve classes.</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_pools</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_pools_overview.html">plot_pools_overview</a></span><span class="op">(</span><span class="va">pools</span>, <span class="va">large_claims_list</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>                    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">arrangeGrob</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">3</span>, widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                    ncol <span class="op">=</span> <span class="fl">1</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-50-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot1</span></span></code></pre></div>
+<pre><code><span><span class="co">## TableGrob (2 x 1) "arrange": 2 grobs</span></span>
+<span><span class="co">##   z     cells    name            grob</span></span>
+<span><span class="co">## 1 1 (1-1,1-1) arrange  gtable[layout]</span></span>
+<span><span class="co">## 2 2 (2-2,1-1) arrange gtable[arrange]</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="reserve-vs-best-estimate-comparison">Reserve vs Best Estimate comparison<a class="anchor" aria-label="anchor" href="#reserve-vs-best-estimate-comparison"></a>
+</h3>
+<p>After simulating you might want to see the difference between the
+original claim reserve and the predicted best estimate. The following
+functions creates two plots for this purpose, one per reserve class and
+one per development year.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span> <span class="op">&lt;-</span> </span>
+<span>   <span class="fu"><a href="../reference/plot_reserve_vs_be.html">plot_reserve_vs_be</a></span><span class="op">(</span>large_claims_list <span class="op">=</span> <span class="va">large_claims_list</span>,</span>
+<span>                      sim_result <span class="op">=</span> <span class="va">sim_result</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-52-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-53-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<p>The following plots show this difference on a single claim basis. The
+first plot contains the pretail years, the second the tail years. The
+plot shows how the best estimates decrease with increasing development
+year. Note that the best estimates of the highest reserve class are not
+stable due to a reduced and fictive input claims dataset.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span> <span class="op">&lt;-</span> </span>
+<span>   <span class="fu"><a href="../reference/plot_reserve_vs_be_per_claim.html">plot_reserve_vs_be_per_claim</a></span><span class="op">(</span>last_orig_year <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>                                pools <span class="op">=</span> <span class="va">pools</span>,</span>
+<span>                                large_claims_list <span class="op">=</span> <span class="va">large_claims_list</span>,</span>
+<span>                                indices <span class="op">=</span> <span class="va">indices_xmpl</span>,</span>
+<span>                                age_shift <span class="op">=</span> <span class="va">age_shift_xmpl</span>,</span>
+<span>                                mortality <span class="op">=</span> <span class="va">mortality_xmpl</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-55-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-56-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="backtesting">Backtesting<a class="anchor" aria-label="anchor" href="#backtesting"></a>
+</h3>
+<p>All the backtesting functions compare the actual payments with
+payments’ expectations and their quantiles. For this purpose we need to
+create a predicted payments series from the old reservation in
+advance.</p>
+<div class="section level4">
+<h4 id="backtesting-after-one-year">Backtesting after one year<a class="anchor" aria-label="anchor" href="#backtesting-after-one-year"></a>
+</h4>
+<p>The most common backtesting compares the actual payments with the
+predicted payments from one year ago. The last origin year in this
+example is 2023. Therefore we need the predicted payments series from
+2022 here.</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">claims_data_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">claims_data_xmpl</span>,</span>
+<span>                                 <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">historic_indices_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">historic_indices_xmpl</span>,</span>
+<span>                                      <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">indices_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_historic_indices.html">expand_historic_indices</a></span><span class="op">(</span><span class="va">historic_indices_old</span>,</span>
+<span>                                       first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                       last_orig_year <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>                                       index_gross_future <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>                                       index_re_future <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">indices_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_transition_factor.html">add_transition_factor</a></span><span class="op">(</span><span class="va">indices_old</span>, index_year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span><span class="va">extended_claims_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_data.html">prepare_data</a></span><span class="op">(</span>claims_data <span class="op">=</span> <span class="va">claims_data_old</span>,</span>
+<span>                                     indices <span class="op">=</span> <span class="va">indices_old</span>,</span>
+<span>                                     threshold <span class="op">=</span> <span class="fl">400000</span>,</span>
+<span>                                     first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                     last_orig_year <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>                                     expected_year_of_growing_large <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                     reserve_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200001</span>, <span class="fl">400001</span>, <span class="fl">700001</span>, <span class="fl">1400001</span><span class="op">)</span>,</span>
+<span>                                     pool_of_annuities <span class="op">=</span> <span class="va">pool_of_annuities_xmpl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pools</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pools.html">generate_pools</a></span><span class="op">(</span>extended_claims_data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                        reserve_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200001</span>, <span class="fl">400001</span>, <span class="fl">700001</span>, <span class="fl">1400001</span><span class="op">)</span>,</span>
+<span>                        years_for_pools <span class="op">=</span> <span class="fl">2014</span><span class="op">:</span><span class="fl">2022</span>,</span>
+<span>                        start_of_tail <span class="op">=</span> <span class="fl">17</span>,</span>
+<span>                        end_of_tail <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                        lower_outlier_limit <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
+<span>                        upper_outlier_limit <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>                        pool_of_annuities <span class="op">=</span> <span class="va">pool_of_annuities_xmpl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">large_claims_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_claims_list.html">generate_claims_list</a></span><span class="op">(</span>extended_claims_data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                                          first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                          last_orig_year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_history_per_claim.html">generate_history_per_claim</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                                      column <span class="op">=</span> <span class="st">"Cl_payment_cal"</span>,</span>
+<span>                                      first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                      last_orig_year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">series</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sicr_series.html">sicr_series</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                      large_claims_list <span class="op">=</span> <span class="va">large_claims_list</span>,</span>
+<span>                      first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                      last_orig_year <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>                      pools <span class="op">=</span> <span class="va">pools</span>,</span>
+<span>                      indices <span class="op">=</span> <span class="va">indices_old</span>,</span>
+<span>                      history <span class="op">=</span> <span class="va">history</span>,</span>
+<span>                      progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Now we derive the new extended_claims_data dataframe and create the
+plot:</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">extended_claims_data_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_data.html">prepare_data</a></span><span class="op">(</span>claims_data <span class="op">=</span> <span class="va">claims_data_xmpl</span>,</span>
+<span>                                     indices <span class="op">=</span> <span class="va">indices_xmpl</span>,</span>
+<span>                                     threshold <span class="op">=</span> <span class="fl">400000</span>,</span>
+<span>                                     first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                     last_orig_year <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>                                     expected_year_of_growing_large <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                     reserve_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200001</span>, <span class="fl">400001</span>, <span class="fl">700001</span>, <span class="fl">1400001</span><span class="op">)</span>,</span>
+<span>                                     pool_of_annuities <span class="op">=</span> <span class="va">pool_of_annuities_xmpl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g_oy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_1y_per_origin_year.html">backtesting_1y_per_origin_year</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
+<span>                                       extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span><span class="op">)</span></span>
+<span><span class="va">g_rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_1y_per_reserve_class.html">backtesting_1y_per_reserve_class</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
+<span>                                         extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span><span class="op">)</span></span></code></pre></div>
+<p>First per origin year:</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_oy</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-59-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<p>Then per reserve class:</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_rc</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-60-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+<p>Another function offers a further zoom in to the payments’
+expectation and quantiles for single claims. Chose a reserve class and
+the desired development years in the functions arguments. The points may
+either be labelled by the claim id or with the origin year. It will not
+be labelled at all if the ggrepel package is not installed.</p>
+<p>In the following example we create the plot for reserve class 5 and
+development years 2:10.</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_1y_single_per_dev_year.html">backtesting_1y_single_per_dev_year</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
+<span>                                               extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span>,</span>
+<span>                                               reserve_class <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>                                               dev_year <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_single</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-62-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+</div>
+<div class="section level4">
+<h4 id="multiyear-backtesting">Multiyear backtesting<a class="anchor" aria-label="anchor" href="#multiyear-backtesting"></a>
+</h4>
+<p>You might also be interested in an actual vs expected comparison over
+multiple years. For this purpose we create the above objects for an
+earlier reserving year (e.g. 2020) and build the plot:</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">claims_data_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">claims_data_xmpl</span>,</span>
+<span>                                 <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2020</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">historic_indices_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">historic_indices_xmpl</span>,</span>
+<span>                                      <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2020</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">indices_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_historic_indices.html">expand_historic_indices</a></span><span class="op">(</span><span class="va">historic_indices_old</span>,</span>
+<span>                                       first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                       last_orig_year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>                                       index_gross_future <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>                                       index_re_future <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">indices_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_transition_factor.html">add_transition_factor</a></span><span class="op">(</span><span class="va">indices_old</span>, index_year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span><span class="va">extended_claims_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_data.html">prepare_data</a></span><span class="op">(</span>claims_data <span class="op">=</span> <span class="va">claims_data_old</span>,</span>
+<span>                                     indices <span class="op">=</span> <span class="va">indices_old</span>,</span>
+<span>                                     threshold <span class="op">=</span> <span class="fl">400000</span>,</span>
+<span>                                     first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                     last_orig_year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>                                     expected_year_of_growing_large <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                     reserve_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200001</span>, <span class="fl">400001</span>, <span class="fl">700001</span>, <span class="fl">1400001</span><span class="op">)</span>,</span>
+<span>                                     pool_of_annuities <span class="op">=</span> <span class="va">pool_of_annuities_xmpl</span><span class="op">)</span></span>
+<span><span class="va">pools</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pools.html">generate_pools</a></span><span class="op">(</span>extended_claims_data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                        reserve_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200001</span>, <span class="fl">400001</span>, <span class="fl">700001</span>, <span class="fl">1400001</span><span class="op">)</span>,</span>
+<span>                        years_for_pools <span class="op">=</span> <span class="fl">2014</span><span class="op">:</span><span class="fl">2020</span>,</span>
+<span>                        start_of_tail <span class="op">=</span> <span class="fl">17</span>,</span>
+<span>                        end_of_tail <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                        lower_outlier_limit <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
+<span>                        upper_outlier_limit <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>                        pool_of_annuities <span class="op">=</span> <span class="va">pool_of_annuities_xmpl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">large_claims_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_claims_list.html">generate_claims_list</a></span><span class="op">(</span>extended_claims_data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                                          first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                          last_orig_year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_history_per_claim.html">generate_history_per_claim</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">extended_claims_data</span>,</span>
+<span>                                      column <span class="op">=</span> <span class="st">"Cl_payment_cal"</span>,</span>
+<span>                                      first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                                      last_orig_year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">series</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sicr_series.html">sicr_series</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                      large_claims_list <span class="op">=</span> <span class="va">large_claims_list</span>,</span>
+<span>                      first_orig_year <span class="op">=</span> <span class="fl">1989</span>,</span>
+<span>                      last_orig_year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>                      pools <span class="op">=</span> <span class="va">pools</span>,</span>
+<span>                      indices <span class="op">=</span> <span class="va">indices_old</span>,</span>
+<span>                      history <span class="op">=</span> <span class="va">history</span>,</span>
+<span>                      progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g_multiyears</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_multiyears.html">backtesting_multiyears</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
+<span>                                       extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span>,</span>
+<span>                                       reserve_classes <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                       dev_year <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_multiyears</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="sicr_files/figure-html/unnamed-chunk-64-1.png" alt=" " width="98%"><p class="caption">
+</p>
+</div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -1537,7 +1793,7 @@ The result in Excel looks like this:
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

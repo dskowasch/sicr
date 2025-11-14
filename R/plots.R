@@ -976,6 +976,7 @@ plot_pools_overview <- function(pools,
 #' @param reinsurance Dataframe with reinsurance information, see details of [xl_cashflow()] or [reinsurance_xmpl]. Default: NULL\cr
 #' Only necessary if reinsurance shall be considered.
 #' @param seed Default: 12345. Setting a seed makes the simulation reproducible.
+#' @param progress Default: TRUE. Set to FALSE if no progress bar shall be shown during simulation.
 #'
 #' @returns
 #' Numeric three-dimensional array with \cr
@@ -1036,7 +1037,8 @@ sicr_series <- function(n,
                         age_shift = NULL,
                         mortality = NULL,
                         reinsurance = NULL,
-                        seed = 12345) {
+                        seed = 12345,
+                        progress = TRUE) {
 
    # check if columns contains only valid names
    valid_column_names <- c("Gross_sum",
@@ -1064,19 +1066,21 @@ sicr_series <- function(n,
    start_time <- Sys.time() # set start time to predict remaining time
    for (realisation in 1:n) {
       duration <- Sys.time() - start_time
-      cat("\r", # print progress
-          " ",
-          realisation,
-          " of ",
-          n,
-          " (",
-          realisation/n * 100,
-          "%",
-          ")",
-          " --- remaining time approx. ",
-          sicr::nice_format(duration/(realisation - 1) * (n - realisation + 1)),
-          "          ",
-          sep = "")
+      if (progress) {
+         cat("\r", # print progress
+             " ",
+            realisation,
+            " of ",
+            n,
+            " (",
+            realisation/n * 100,
+            "%",
+            ")",
+            " --- remaining time approx. ",
+            sicr::nice_format(duration/(realisation - 1) * (n - realisation + 1)),
+            "          ",
+            sep = "")
+      }
 
       # simulate
       sim_result <-
@@ -1761,7 +1765,7 @@ backtesting_1y_single_per_dev_year <- function(sim_result_series_old,
             fill = Type
          ),
          stat = "identity",
-         alpha = 0.8,
+         alpha = 1,
          width = 0.8
       ) +
       geom_segment(

@@ -23,6 +23,10 @@
 <url><loc>https://dskowasch.github.io/sicr/reference/all_claims_reserved_xmpl.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/apply_index.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/attach_future_annuities.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/backtesting_1y_per_origin_year.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/backtesting_1y_per_reserve_class.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/backtesting_1y_single_per_dev_year.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/backtesting_multiyears.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/best_estimate2cashflow.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/cal_year2dev_year.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/check_column_type.html</loc></url>
@@ -74,6 +78,9 @@
 <url><loc>https://dskowasch.github.io/sicr/reference/mortality_xmpl.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/nice_format.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/plot_identify_special_claims.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/plot_pools_overview.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/plot_reserve_vs_be.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/plot_reserve_vs_be_per_claim.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/pools2dataframe.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/pools2matrix.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/pool_of_annuities_ok.html</loc></url>
@@ -93,6 +100,8 @@
 <url><loc>https://dskowasch.github.io/sicr/reference/settlement_rates.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/sicr-package.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/sicr.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/sicr_series.html</loc></url>
+<url><loc>https://dskowasch.github.io/sicr/reference/sicr_single.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/skeleton_prediction.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/skeleton_triangle.html</loc></url>
 <url><loc>https://dskowasch.github.io/sicr/reference/tail_factor.html</loc></url>
