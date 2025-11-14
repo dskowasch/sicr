@@ -20,7 +20,8 @@ sicr_series(
   age_shift = NULL,
   mortality = NULL,
   reinsurance = NULL,
-  seed = 12345
+  seed = 12345,
+  progress = TRUE
 )
 }
 \arguments{
@@ -67,6 +68,8 @@ Only necessary if annuities shall be considered.}
 Only necessary if reinsurance shall be considered.}
 
 \item{seed}{Default: 12345. Setting a seed makes the simulation reproducible.}
+
+\item{progress}{Default: TRUE. Set to FALSE if no progress bar shall be shown during simulation.}
 }
 \value{
 Numeric three-dimensional array with \cr

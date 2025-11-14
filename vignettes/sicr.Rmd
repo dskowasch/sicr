@@ -901,10 +901,14 @@ p_pools <- plot_pools_overview(pools, large_claims_list)
 ```
 
 ```{r, out.width = "98%",  warning = FALSE, fig.cap = " ", fig.width = 9, fig.height = 6, fig.align = "center"}
-plot1 <- gridExtra::grid.arrange(p_pools[[1]], 
-                    gridExtra::arrangeGrob(p_pools[[2]], p_pools[[3]], p_pools[[4]], ncol = 3, widths = c(1,1,1)),
-                    ncol = 1, heights = c(3, 2))
-plot1
+if (requireNamespace("gridExtra", quietly = TRUE)) {
+   plot1 <- gridExtra::grid.arrange(p_pools[[1]], 
+                       gridExtra::arrangeGrob(p_pools[[2]], p_pools[[3]], p_pools[[4]], ncol = 3, widths = c(1,1,1)),
+                       ncol = 1, heights = c(3, 2))
+   plot1} else {
+      print("gridExtra not installed. Only the first plot is shown.")
+      p_pools[1]
+   }
 ```
 
 ### Reserve vs Best Estimate comparison
