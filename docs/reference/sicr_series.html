@@ -57,7 +57,8 @@ of each realisation for the desired columns.</p>
 <span>  age_shift <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mortality <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reinsurance <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">12345</span></span>
+<span>  seed <span class="op">=</span> <span class="fl">12345</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -140,6 +141,10 @@ Only necessary if reinsurance shall be considered.</p></dd>
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Default: 12345. Setting a seed makes the simulation reproducible.</p></dd>
 
+
+<dt id="arg-progress">progress<a class="anchor" aria-label="anchor" href="#arg-progress"></a></dt>
+<dd><p>Default: TRUE. Set to FALSE if no progress bar shall be shown during simulation.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -186,7 +191,7 @@ The entries contain the sum of the desired information stated in <code>columns</
 <span class="r-in"><span>                      pools <span class="op">=</span> <span class="va">pools</span>,</span></span>
 <span class="r-in"><span>                      indices <span class="op">=</span> <span class="va">indices_xmpl</span>,</span></span>
 <span class="r-in"><span>                      history <span class="op">=</span> <span class="va">history</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1 of 3 (33.33333%) --- remaining time approx. Inf secs           2 of 3 (66.66667%) --- remaining time approx. 0,59 secs           3 of 3 (100%) --- remaining time approx. 0,29 secs          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1 of 3 (33.33333%) --- remaining time approx. Inf secs           2 of 3 (66.66667%) --- remaining time approx. 0,28 secs           3 of 3 (100%) --- remaining time approx. 0,17 secs          </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

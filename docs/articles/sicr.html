@@ -59,7 +59,7 @@ Claims Reserving</h3>
                         <h4 data-toc-skip class="author">Dirk
 Skowasch</h4>
             
-            <h4 data-toc-skip class="date">2025-11-14</h4>
+            <h4 data-toc-skip class="date">2025-11-15</h4>
       
 
       <div class="d-none name"><code>sicr.Rmd</code></div>
@@ -1539,15 +1539,18 @@ and reserve classes.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_pools</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_pools_overview.html">plot_pools_overview</a></span><span class="op">(</span><span class="va">pools</span>, <span class="va">large_claims_list</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>                    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">arrangeGrob</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">3</span>, widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                    ncol <span class="op">=</span> <span class="fl">1</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"gridExtra"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>                       <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">arrangeGrob</a></span><span class="op">(</span><span class="va">p_pools</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="va">p_pools</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">3</span>, widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                       ncol <span class="op">=</span> <span class="fl">1</span>, heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>   <span class="va">plot1</span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"gridExtra not installed. Only the first plot is shown."</span><span class="op">)</span></span>
+<span>      <span class="va">p_pools</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>   <span class="op">}</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-50-1.png" alt=" " width="98%"><p class="caption">
 </p>
 </div>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot1</span></span></code></pre></div>
 <pre><code><span><span class="co">## TableGrob (2 x 1) "arrange": 2 grobs</span></span>
 <span><span class="co">##   z     cells    name            grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange  gtable[layout]</span></span>
@@ -1560,17 +1563,17 @@ and reserve classes.</p>
 original claim reserve and the predicted best estimate. The following
 functions creates two plots for this purpose, one per reserve class and
 one per development year.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span> <span class="op">&lt;-</span> </span>
 <span>   <span class="fu"><a href="../reference/plot_reserve_vs_be.html">plot_reserve_vs_be</a></span><span class="op">(</span>large_claims_list <span class="op">=</span> <span class="va">large_claims_list</span>,</span>
 <span>                      sim_result <span class="op">=</span> <span class="va">sim_result</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-52-1.png" alt=" " width="98%"><p class="caption">
 </p>
 </div>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-53-1.png" alt=" " width="98%"><p class="caption">
@@ -1581,7 +1584,7 @@ first plot contains the pretail years, the second the tail years. The
 plot shows how the best estimates decrease with increasing development
 year. Note that the best estimates of the highest reserve class are not
 stable due to a reduced and fictive input claims dataset.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span> <span class="op">&lt;-</span> </span>
 <span>   <span class="fu"><a href="../reference/plot_reserve_vs_be_per_claim.html">plot_reserve_vs_be_per_claim</a></span><span class="op">(</span>last_orig_year <span class="op">=</span> <span class="fl">2023</span>,</span>
 <span>                                pools <span class="op">=</span> <span class="va">pools</span>,</span>
@@ -1589,13 +1592,13 @@ stable due to a reduced and fictive input claims dataset.</p>
 <span>                                indices <span class="op">=</span> <span class="va">indices_xmpl</span>,</span>
 <span>                                age_shift <span class="op">=</span> <span class="va">age_shift_xmpl</span>,</span>
 <span>                                mortality <span class="op">=</span> <span class="va">mortality_xmpl</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-55-1.png" alt=" " width="98%"><p class="caption">
 </p>
 </div>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_reserve_vs_be_single</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-56-1.png" alt=" " width="98%"><p class="caption">
@@ -1616,7 +1619,7 @@ advance.</p>
 predicted payments from one year ago. The last origin year in this
 example is 2023. Therefore we need the predicted payments series from
 2022 here.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">claims_data_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">claims_data_xmpl</span>,</span>
 <span>                                 <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2022</span><span class="op">)</span></span>
 <span></span>
@@ -1667,7 +1670,7 @@ example is 2023. Therefore we need the predicted payments series from
 <span>                      progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Now we derive the new extended_claims_data dataframe and create the
 plot:</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">extended_claims_data_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_data.html">prepare_data</a></span><span class="op">(</span>claims_data <span class="op">=</span> <span class="va">claims_data_xmpl</span>,</span>
 <span>                                     indices <span class="op">=</span> <span class="va">indices_xmpl</span>,</span>
 <span>                                     threshold <span class="op">=</span> <span class="fl">400000</span>,</span>
@@ -1682,14 +1685,14 @@ plot:</p>
 <span><span class="va">g_rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_1y_per_reserve_class.html">backtesting_1y_per_reserve_class</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
 <span>                                         extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span><span class="op">)</span></span></code></pre></div>
 <p>First per origin year:</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_oy</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-59-1.png" alt=" " width="98%"><p class="caption">
 </p>
 </div>
 <p>Then per reserve class:</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_rc</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-60-1.png" alt=" " width="98%"><p class="caption">
@@ -1702,12 +1705,12 @@ either be labelled by the claim id or with the origin year. It will not
 be labelled at all if the ggrepel package is not installed.</p>
 <p>In the following example we create the plot for reserve class 5 and
 development years 2:10.</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backtesting_1y_single_per_dev_year.html">backtesting_1y_single_per_dev_year</a></span><span class="op">(</span>sim_result_series_old <span class="op">=</span> <span class="va">series</span>,</span>
 <span>                                               extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span>,</span>
 <span>                                               reserve_class <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>                                               dev_year <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_single</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-62-1.png" alt=" " width="98%"><p class="caption">
@@ -1720,7 +1723,7 @@ development years 2:10.</p>
 <p>You might also be interested in an actual vs expected comparison over
 multiple years. For this purpose we create the above objects for an
 earlier reserving year (e.g. 2020) and build the plot:</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">claims_data_old</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">claims_data_xmpl</span>,</span>
 <span>                                 <span class="va">Calendar_year</span> <span class="op">&lt;=</span> <span class="fl">2020</span><span class="op">)</span></span>
 <span></span>
@@ -1773,7 +1776,7 @@ earlier reserving year (e.g. 2020) and build the plot:</p>
 <span>                                       extended_claims_data_new <span class="op">=</span> <span class="va">extended_claims_data_new</span>,</span>
 <span>                                       reserve_classes <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                                       dev_year <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_multiyears</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="sicr_files/figure-html/unnamed-chunk-64-1.png" alt=" " width="98%"><p class="caption">
