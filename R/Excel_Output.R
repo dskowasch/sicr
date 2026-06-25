@@ -295,8 +295,7 @@ add_sicr_aggr_worksheet <- function(workbook, sheetname, sheets_to_add = NULL, s
    # add new sheet and fill new sheet in workbook with result
    workbook <- wb_clone_worksheet(workbook,
                                   old = if (is.null(sheets_to_add)) sheets_to_subtract[1] else sheets_to_add[1],
-                                  new = sheetname,
-                                  from = workbook)
+                                  new = sheetname)
 
    workbook <- wb_add_data(workbook,
                            sheetname,
